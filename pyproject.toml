@@ -17,7 +17,28 @@ packages = ["src/app"]
 dev = [
     "httpx2>=2.13.1",
     "pytest>=9.1.1",
+    "ruff>=0.16.9",
 ]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W",   # pycodestyle: basic style errors
+    "F",        # pyflakes: unused imports, undefined names (real bugs)
+    "I",        # isort: import order
+    "B",        # bugbear: likely bugs and design problems
+    "UP",       # pyupgrade: use modern Python 3.12 syntax
+    "SIM",      # simplify: needlessly complex code
+    "ASYNC",    # blocking calls inside async functions
+    "S",        # bandit: security issues
+    "RUF",      # ruff's own rules
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]  # assert is how pytest works
