@@ -16,6 +16,7 @@ packages = ["src/app"]
 [dependency-groups]
 dev = [
     "httpx2>=2.13.1",
+    "mypy>=2.3.1",
     "pytest>=9.1.1",
     "ruff>=0.16.9",
 ]
@@ -42,3 +43,8 @@ select = [
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S101"]  # assert is how pytest works
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+plugins = ["pydantic.mypy"]
