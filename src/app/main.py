@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 
-app = FastAPI(title="Bilingual DocQA API", version="0.1.0")
+from app.core.config import settings
+
+app = FastAPI(title=settings.app_name, version="0.1.0", debug=settings.debug)
 
 
 @app.get("/health")
 async def health() -> dict[str, str]:
-    return {"status": "ok"}
+    return {"status": "ok", "environment": settings.environment}
