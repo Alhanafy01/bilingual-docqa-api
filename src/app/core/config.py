@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     environment: str = "local"
     debug: bool = False
     database_url: str
+    test_database_url: str
 
 
 settings = Settings()
