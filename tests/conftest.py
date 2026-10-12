@@ -25,7 +25,7 @@ app.dependency_overrides[get_session] = get_test_session
 @pytest.fixture(autouse=True)
 async def clean_tables() -> AsyncIterator[None]:
     async with test_engine.begin() as conn:
-        await conn.execute(text("TRUNCATE TABLE documents RESTART IDENTITY"))
+        await conn.execute(text("TRUNCATE TABLE chunks, documents RESTART IDENTITY"))
     yield
 
 
