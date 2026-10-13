@@ -9,6 +9,10 @@ class Settings(BaseSettings):
     debug: bool = False
     database_url: str
     test_database_url: str
+    embedding_base_url: str
+    embedding_model: str
+    embedding_api_key: str = "ollama"
+    embedding_dimensions: int = 1024
 
 
 settings = Settings()
