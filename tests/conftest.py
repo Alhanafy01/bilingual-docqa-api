@@ -33,3 +33,12 @@ async def clean_tables() -> AsyncIterator[None]:
 def client() -> Iterator[TestClient]:
     with TestClient(app) as c:
         yield c
+
+
+async def fake_embed_texts(texts: list[str]) -> list[list[float]]:
+    return [[0.0] * settings.embedding_dimensions for _ in texts]
+
+
+@pytest.fixture(autouse=True)
+def no_real_embedings(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr("app.services.embeddings.embed_texts", fake_embed_texts)
