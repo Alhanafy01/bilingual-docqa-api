@@ -35,6 +35,12 @@ def client() -> Iterator[TestClient]:
         yield c
 
 
+@pytest.fixture
+async def session() -> AsyncIterator[AsyncSession]:
+    async with TestSessionLocal() as s:
+        yield s
+
+
 async def fake_embed_texts(texts: list[str]) -> list[list[float]]:
     return [[0.0] * settings.embedding_dimensions for _ in texts]
 

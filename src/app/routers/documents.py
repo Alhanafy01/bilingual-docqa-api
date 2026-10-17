@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.session import get_session
 from app.models.document import Document
 from app.schemas.documents import DocumentCreate, DocumentRead
+from app.services.ingestion import ingest_document
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 SessionDep = Annotated[AsyncSession, Depends(get_session)]
@@ -21,6 +22,7 @@ async def create_document(
     session.add(document)
     await session.commit()
     await session.refresh(document)
+    await ingest_document(document, session)
     return DocumentRead.model_validate(document)
 
 
